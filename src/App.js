@@ -10,76 +10,108 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
 
 
 const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(10),
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 400,
+    textAlign: 'left'
+  },
+  textField: {
+    minWidth: 400,
+    margin: theme.spacing(1),
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  checkboxSpacing: {
+    margin: theme.spacing(1),
+  }
 }));
-
 
 function App() {
   const classes = useStyles();
-  const [value, setValue] = React.useState('female');
-  const [textValues, setTextValue] = React.useState({
-      name: "",
-      surName: ""
-  });
+  const [values, setValue] = React.useState({
+    age: "29",
+    name: "",
+    city: "",
+    fear: "",
+    is18: null
+  })
+  const handleChange = fieldName => event => {
+    setValue({...values, [fieldName]: event.target.value})
+  }
 
-  const handleChange = event => {
-    setValue(event.target.value);
-  };
-
-
-  const handleInputChange = (fieldName, event) => {
-    setTextValue({ ...textValues, [fieldName]: event.target.value });
-  };
-  // const handleInputChange = fieldName => event => {
-  //   setTextValue({ ...textValues, [fieldName]: event.target.value });
-  // };
-  console.log("STATE: ", textValues);
+  console.log("STATE:", values);
   return (
     <div className="App">
-        <header className="App-header"> 
-
+      <br /><br />
         <form className={classes.container} noValidate autoComplete="off">
-            <TextField
-              id="outlined-name"
-              label="Name"
-              className={classes.textField}
-              value={textValues.name}
-              onChange={(e) => handleInputChange("name", e)}
-              margin="normal"
-              variant="outlined"
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel htmlFor="outlined-age-simple">Age</InputLabel>
+            <Select
+              autoWidth={false}
+              value={values.age}
+              onChange={handleChange("age")}
+              labelWidth={40}
+              inputProps={{
+                name: 'age',
+                id: 'outlined-age-simple',
+              }}
+            >
+              <MenuItem value="None"><em>None</em></MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField
+            id="outlined-name"
+            label="Name"
+            className={classes.textField}
+            value={values.name}
+            onChange={handleChange("name")}
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            id="outlined-name"
+            label="City"
+            className={classes.textField}
+            value={values.city}
+            onChange={(e) => handleChange("city")(e)}
+            margin="normal"
+            variant="outlined"
+          />
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={values.is18}
+                  onChange={handleChange('agreeIs18')}
+                  value="agreeIs18"
+                  color="primary"
+                />
+              }
+              label="Do you have 18?"
+              className={classes.checkboxSpacing}
             />
-            <TextField
-              id="outlined-name"
-              label="Sure name"
-              className={classes.textField}
-              value={textValues.surName}
-              onChange={(e) => handleInputChange("surName", e)}
-              margin="normal"
-              variant="outlined"
-            />
+          </FormGroup>
+
+          <Button size="large" variant="contained" color="primary">
+            Send data
+          </Button>
         </form>
-
-
-      
-        <img src={logo} className="App-logo" alt="logo" />
-     
-        <Button variant="contained" color="primary">
-          Hello World
-        </Button>
-
-        <div>selected: {value} </div>
-        <FormControl component="fieldset" className={classes.formControl}>
-            <RadioGroup aria-label="GROUP_NAME" name="GROUP_NAME" value={value} onChange={handleChange}>
-                <FormControlLabel labelPlacement="top" value="female11" control={<Radio color="primary" />} label="Female" />
-                <FormControlLabel labelPlacement="top" value="male11" control={<Radio />} label="Male" />
-            </RadioGroup>
-        </FormControl>
-      </header>
     </div>
   );
 }
