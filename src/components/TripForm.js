@@ -132,7 +132,7 @@ function TripForm() {
             />
           </MuiPickersUtilsProvider>
           
-          <div className={classes.spacing1}>
+          {/* <div className={classes.spacing1}>
             <Typography id="discrete-slider" gutterBottom>
               Twoje doświadczenie górskie
             </Typography>
@@ -146,7 +146,7 @@ function TripForm() {
               min={10}
               max={100}
             />
-          </div>
+          </div> */}
         
           <FormGroup row>
             <FormControlLabel
