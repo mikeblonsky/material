@@ -37,6 +37,9 @@ export default function ButtonAppBar() {
             <Link to="/profile-list">
               <Button color="inherit" className={classes.button}>Lista profili</Button>
             </Link>
+            <Link to="/travels-list">
+              <Button color="inherit" className={classes.button}>Aktywne wycieczki</Button>
+            </Link>
             <Link to="/addTrip">
               <Button color="inherit" className={classes.button}>Dodaj wycieczkę</Button>
             </Link>

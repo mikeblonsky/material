@@ -10,8 +10,7 @@ import TopBar from "./components/layout/TopBar";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,7 +21,8 @@ const styles = makeStyles(theme => ({
     backgroundColor: 'red',
   },
 }));
-
+const TravelsList = () => <div>Lista aktywych wycieczek</div>;
+const NoMatch = () => <div>Nie ma takiej strony</div>;
 class App extends React.Component {
   render() {
     const { classes } = this.props;
@@ -37,8 +37,14 @@ class App extends React.Component {
             <Route exact path="/profile-list">
               <ProfileList />
             </Route>
+            <Route exact path="/travels-list">
+              <TravelsList />
+            </Route>
             <Route exact path="/addTrip">
               <TripForm />
+            </Route>
+            <Route path="*">
+              <NoMatch />
             </Route>
           </Switch>
         </div>
